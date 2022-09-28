@@ -22,4 +22,9 @@ class HomepageController extends Controller
             'title'=>'Tentang Kami'
         ]);
     }
+    public function kategori(){
+        return view('homepage.kategori',[
+            'title'=>'kategori Produk'
+        ]);
+    }
 }
