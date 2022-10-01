@@ -5,6 +5,9 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +41,12 @@ Route::prefix('admin')->group(function () {
     Route::resource('kategori',KategoriController::class);
     Route::resource('produk',ProdukController::class);
     Route::resource('customer',CustomerController::class);
+    Route::resource('transaksi',TransaksiController::class);
+    Route::get('profil',[UserController::class,'index']);
+    Route::get('setting',[UserController::class,'setting']);
+    Route::get('laporan',[LaporanController::class,'index']);
+    Route::get('proseslaporan',[LaporanController::class,'proses']);
+
 
     
 });

@@ -43,9 +43,9 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ route('transaksi.index') }}" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
-            <p>Transaksi Baru</p>
+            <p>Data Transaksi</p>
           </a>
         </li>
       </ul>
@@ -77,12 +77,20 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ URL::to('admin/laporan') }}" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Penjualan</p>
           </a>
         </li>
       </ul>
+    </li>
+    <li class="nav-item">
+      <a href="{{ URL::to('admin/profil') }}" class="nav-link">
+        <i class="nav-icon fas fa-users"></i>
+        <p>
+          Profil
+        </p>
+      </a>
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link">
