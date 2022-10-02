@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Produk extends Model
@@ -25,10 +24,13 @@ class Produk extends Model
     ];
 
     public function kategori() {
-        return $this->belongsTo('App\Kategori', 'kategori_id');
+        return $this->belongsTo(kategori::class,'kategori_id');
     }
 
     public function user() {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function images() {
+        return $this->hasMany(ProdukImage::class,'produk_id');
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
+use App\Models\ProdukImage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,7 +53,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::delete('image/{id}',[ImageController::class,'destroy']);
     Route::post('imagekategori',[KategoriController::class,'uploadimage']);
     Route::delete('imagekategori/{id}',[KategoriController::class,'deleteimage']);
-  
+    Route::post('imageproduk',[ProdukImage::class,'uploadimage']);
+    Route::delete('imageproduk/{id}',[ProdukImage::class,'deleteimage']);
 
 });
 Auth::routes();

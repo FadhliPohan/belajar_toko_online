@@ -53,10 +53,12 @@ class ImageController extends Controller
         }
     }
     
-    // public function upload($fileupload, $itemuser, $folder) {
-    //     $path = $fileupload->store('files');
-    //     $inputangambar['url'] = $path;
-    //     $inputangambar['user_id'] = $itemuser->id;
-    //     return Image::create($inputangambar);
-    // }
+    public function upload($fileupload, $itemuser, $penggunaimage) {
+        $penggunaimage = date('YmdHis') . "." .
+            $fileupload->getClientOriginalExtension();
+        $path = $fileupload->storeAs('public/dataimage', $penggunaimage);
+        $inputangambar['url'] = $penggunaimage;
+        $inputangambar['user_id'] = $itemuser->id;
+        return Image::create($inputangambar);
+    }
 }
