@@ -5,6 +5,7 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
@@ -36,7 +37,7 @@ Route::get('/produk',[HomepageController::class,'produk']);
 Route::get('/produk/{slug}',[HomepageController::class,'produkdetail']);
 
 
-Route::prefix('admin')->group(function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::get('/',[DashboardController::class,'index']);
     Route::resource('kategori',KategoriController::class);
     Route::resource('produk',ProdukController::class);
@@ -46,7 +47,14 @@ Route::prefix('admin')->group(function () {
     Route::get('setting',[UserController::class,'setting']);
     Route::get('laporan',[LaporanController::class,'index']);
     Route::get('proseslaporan',[LaporanController::class,'proses']);
+    Route::get('image',[ImageController::class,'index']);
+    Route::post('image',[ImageController::class,'store']);
+    Route::delete('image/{id}',[ImageController::class,'destroy']);
+    Route::post('imagekategori',[KategoriController::class,'uploadimage']);
+    Route::delete('imagekategori/{id}',[KategoriController::class,'deleteimage']);
+  
 
-
-    
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
