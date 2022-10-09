@@ -85,7 +85,8 @@
                             <div class="form-group">
                                 <label for="status">Status</label>
                                 <select name="status" id="status" class="form-control">
-                                    <option value="publish" {{ $itemproduk->status == 'publish' ? 'selected' : '' }}>Publish
+                                    <option value="publish" {{ $itemproduk->status == 'publish' ? 'selected' : '' }}>
+                                        Publish
                                     </option>
                                     <option value="unpublish" {{ $itemproduk->status == 'unpublish' ? 'selected' : '' }}>
                                         Unpublish</option>

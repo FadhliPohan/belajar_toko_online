@@ -159,14 +159,15 @@ class KategoriController extends Controller
                                 ->where('id', $request->kategori_id)
                                 ->first();
         if ($itemkategori) {
-            $foto = $request->file('image');
+            $fileupload = $request->file('image');
             // $folder = 'assets/images';
             $penggunaimage = date('YmdHis') . "." .
-            $foto->getClientOriginalExtension();
+            $fileupload->getClientOriginalExtension();
             //extention menyimpan
-            $foto->storeAs('public/dataimage', $penggunaimage);
+             $itemgambar = (new ImageController)->upload($fileupload, $itemuser, $penggunaimage);
+            
             //extention ke database
-            $inputan['foto'] ="$penggunaimage";
+            $inputan['foto'] =$itemgambar->url;
  
             // $itemgambar = (new ImageController)->upload($fileupload, $itemuser, $folder);
             // $inputan['foto'] = $itemgambar->url;//ambil url file yang barusan diupload

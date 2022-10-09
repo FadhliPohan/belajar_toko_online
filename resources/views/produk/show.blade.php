@@ -85,7 +85,8 @@
                         <div class="row">
                             @foreach ($itemproduk->images as $image)
                                 <div class="col-md-3 mb-2">
-                                    <img src="{{ \Storage::url($image->foto) }}" alt="image" class="img-thumbnail mb-2">
+                                    <img src="{{ asset('storage/dataimage/' . $image->foto) }}" alt="image"
+                                        class="img-thumbnail mb-2">
                                     <form action="{{ url('/admin/produkimage/' . $image->id) }}" method="post"
                                         style="display:inline;">
                                         @csrf

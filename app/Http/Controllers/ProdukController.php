@@ -101,7 +101,7 @@ class ProdukController extends Controller
     public function edit($id)
     {
 
-               $itemproduk = Produk::findOrFail($id);
+        $itemproduk = Produk::findOrFail($id);
         $itemkategori = Kategori::orderBy('nama_kategori', 'asc')->get();
         $data = array('title' => 'Form Edit Produk',
                 'itemproduk' => $itemproduk,
@@ -185,11 +185,11 @@ class ProdukController extends Controller
             // simpan ke produk image
             ProdukImage::create($inputan);
             // update banner produk
-            $itemproduk->update(['foto' => $penggunaimage]);
+            $itemproduk->update(['foto' => $itemgambar->url]);
             // end update banner produk
             return back()->with('success', 'Image berhasil diupload');
         } else {
-            return back()->with('error', 'Kategori tidak ditemukan');
+            return back()->with('error', 'Produk tidak ditemukan');
         }
     }
 

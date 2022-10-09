@@ -62,6 +62,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::delete('imagekategori/{id}',[KategoriController::class,'deleteimage']);
     Route::post('imageproduk',[ProdukController::class,'uploadimage']);
     Route::delete('imageproduk/{id}',[ProdukController::class,'deleteimage']);
+    Route::post('produkimage',[ProdukController::class,'uploadimage']);
     Route::delete('produkimage/{id}',[ProdukController::class,'deleteimage']);
     Route::resource('promo',ProdukPromoController::class);
     Route::get('loadprodukasync/{id}',[ProdukController::class,'loadasync']);
