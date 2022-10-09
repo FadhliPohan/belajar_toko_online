@@ -25,6 +25,9 @@
                                             Harga
                                         </th>
                                         <th>
+                                            Diskon
+                                        </th>
+                                        <th>
                                             Qty
                                         </th>
                                         <th>
@@ -33,36 +36,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($itemorder->cart->detail as $detail)
+                                        <tr>
+                                            <td>
+                                                {{ $no++ }}
+                                            </td>
+                                            <td>
+                                                {{ $detail->produk->kode_produk }}
+                                            </td>
+                                            <td>
+                                                {{ $detail->produk->nama_produk }}
+                                            </td>
+                                            <td class="text-right">
+                                                {{ number_format($detail->harga, 2) }}
+                                            </td>
+                                            <td class="text-right">
+                                                {{ number_format($detail->diskon, 2) }}
+                                            </td>
+                                            <td class="text-right">
+                                                {{ $detail->qty }}
+                                            </td>
+                                            <td class="text-right">
+                                                {{ number_format($detail->subtotal, 2) }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     <tr>
-                                        <td>1</td>
-                                        <td>KATE-1</td>
-                                        <td>Baju Anak</td>
-                                        <td class="text-right">15.000</td>
-                                        <td class="text-right">2</td>
-                                        <td class="text-right">30.000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>KATE-2</td>
-                                        <td>Baju Anak</td>
-                                        <td class="text-right">25.000</td>
-                                        <td class="text-right">2</td>
-                                        <td class="text-right">50.000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>KATE-3</td>
-                                        <td>Baju Anak</td>
-                                        <td class="text-right">35.000</td>
-                                        <td class="text-right">2</td>
-                                        <td class="text-right">70.000</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
+                                        <td colspan="6">
                                             <b>Total</b>
                                         </td>
                                         <td class="text-right">
-                                            <b>150.000</b>
+                                            <b>
+                                                {{ number_format($itemorder->cart->total, 2) }}
+                                            </b>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -73,6 +79,38 @@
                         <a href="{{ route('transaksi.index') }}" class="btn btn-sm btn-danger">Tutup</a>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-header">Alamat Pengiriman</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-stripped">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Penerima</th>
+                                        <th>Alamat</th>
+                                        <th>No tlp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {{ $itemorder->nama_penerima }}
+                                        </td>
+                                        <td>
+                                            {{ $itemorder->alamat }}<br />
+                                            {{ $itemorder->kelurahan }}, {{ $itemorder->kecamatan }}<br />
+                                            {{ $itemorder->kota }}, {{ $itemorder->provinsi }} -
+                                            {{ $itemorder->kodepos }}
+                                        </td>
+                                        <td>
+                                            {{ $itemorder->no_tlp }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col col-lg-4 col-md-4">
                 <div class="card">
@@ -80,9 +118,26 @@
                         <h3 class="card-title">Ringkasan</h3>
                     </div>
                     <div class="card-body">
+                        @if (count($errors) > 0)
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-warning">{{ $error }}</div>
+                            @endforeach
+                        @endif
+                        @if ($message = Session::get('error'))
+                            <div class="alert alert-warning">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
                         <div class="table-responsive">
                             <table class="table">
-                                <form action="">
+                                <form action="{{ route('transaksi.update', $itemorder->id) }}" method='post'>
+                                    @csrf
+                                    {{ method_field('patch') }}
                                     <tbody>
                                         <tr>
                                             <td>
@@ -90,7 +145,7 @@
                                             </td>
                                             <td>
                                                 <input type="text" name="total" id="total" class="form-control"
-                                                    value="150.000">
+                                                    value="{{ $itemorder->cart->total }}">
                                             </td>
                                         </tr>
                                         <tr>
@@ -99,7 +154,7 @@
                                             </td>
                                             <td>
                                                 <input type="text" name="subtotal" id="subtotal" class="form-control"
-                                                    value="150.000">
+                                                    value="{{ $itemorder->cart->subtotal }}">
                                             </td>
                                         </tr>
                                         <tr>
@@ -108,7 +163,7 @@
                                             </td>
                                             <td>
                                                 <input type="text" name="diskon" id="diskon" class="form-control"
-                                                    value="0">
+                                                    value="{{ $itemorder->cart->diskon }}">
                                             </td>
                                         </tr>
                                         <tr>
@@ -117,7 +172,7 @@
                                             </td>
                                             <td>
                                                 <input type="text" name="ongkir" id="ongkir" class="form-control"
-                                                    value="27.000">
+                                                    value="{{ $itemorder->cart->ongkir }}">
                                             </td>
                                         </tr>
                                         <tr>
@@ -126,7 +181,7 @@
                                             </td>
                                             <td>
                                                 <input type="text" name="ekspedisi" id="ekspedisi" class="form-control"
-                                                    value="jne">
+                                                    value="{{ $itemorder->cart->ekspedisi }}">
                                             </td>
                                         </tr>
                                         <tr>
@@ -135,7 +190,7 @@
                                             </td>
                                             <td>
                                                 <input type="text" name="no_resi" id="no_resi" class="form-control"
-                                                    value="123123123123">
+                                                    value="{{ $itemorder->cart->no_resi }}">
                                             </td>
                                         </tr>
                                         <tr>
@@ -145,21 +200,28 @@
                                             <td>
                                                 <select name="status_pembayaran" id="status_pembayaran"
                                                     class="form-control">
-                                                    <option value="sudah">Sudah Dibayar</option>
-                                                    <option value="belum">Belum Dibayar</option>
+                                                    <option value="sudah"
+                                                        {{ $itemorder->cart->status_pembayaran == 'sudah' ? 'selected' : '' }}>
+                                                        Sudah Dibayar</option>
+                                                    <option value="belum"
+                                                        {{ $itemorder->cart->status_pembayaran == 'belum' ? 'selected' : '' }}>
+                                                        Belum Dibayar</option>
                                                 </select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                Status
+                                                Status Pengiriman
                                             </td>
                                             <td>
-                                                <select name="status" id="status" class="form-control">
-                                                    <option value="checkout">Checkout</option>
-                                                    <option value="diproses">Diproses</option>
-                                                    <option value="dikirim">Dikirim</option>
-                                                    <option value="diterima">Diterima</option>
+                                                <select name="status_pengiriman" id="status_pengiriman"
+                                                    class="form-control">
+                                                    <option value="sudah"
+                                                        {{ $itemorder->cart->status_pengiriman == 'sudah' ? 'selected' : '' }}>
+                                                        Sudah</option>
+                                                    <option value="belum"
+                                                        {{ $itemorder->cart->status_pengiriman == 'belum' ? 'selected' : '' }}>
+                                                        Belum</option>
                                                 </select>
                                             </td>
                                         </tr>

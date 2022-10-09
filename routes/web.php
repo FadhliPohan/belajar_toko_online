@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\KategoriController;
@@ -7,9 +9,13 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\ProdukPromoController;
 use App\Http\Controllers\SlideshowController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishlistController;
+use App\Models\AlamatPengiriman;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,17 +29,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/home', function () {
+//     return redirect('/admin');
+// });
 
 // Route::get('/', 'HomepageController@index');XXX
 // Route::resource('/',HomepageController::class);
-Route::get('/', [App\Http\Controllers\HomepageController::class, 'index'])->name('home');
+Route::get('/', [HomepageController::class, 'index'])->name('home');
 Route::get('/about',[HomepageController::class,'about']);
 Route::get('/kontak',[HomepageController::class,'kontak']);
 Route::get('/kategori',[HomepageController::class,'kategori']);
-Route::get('/kategori/{slug}',[HomepageController::class,'produkperkategori']);
+Route::get('/kategori/{slug}',[HomepageController::class,'kategoribyslug']);
 Route::get('/produk',[HomepageController::class,'produk']);
 Route::get('/produk/{slug}',[HomepageController::class,'produkdetail']);
 
@@ -57,9 +63,26 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::post('imageproduk',[ProdukController::class,'uploadimage']);
     Route::delete('imageproduk/{id}',[ProdukController::class,'deleteimage']);
     Route::delete('produkimage/{id}',[ProdukController::class,'deleteimage']);
-
-
+    Route::resource('promo',ProdukPromoController::class);
+    Route::get('loadprodukasync/{id}',[ProdukController::class,'loadasync']);
+    Route::resource('wishlist',WishlistController::class);
 });
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// shopping cart
+Route::group(['middleware' => 'auth'], function() {
+  // cart
+  Route::resource('cart', CartController::class);
+  Route::patch('kosongkan/{id}', [CartController::class,'kosongkan']);
+  // cart detail
+  Route::resource('cartdetail', CartDetailController::class);
+  Route::resource('alamatpengiriman', AlamatPengiriman::class);
+// checkout
+Route::get('checkout',[CartController::class,'checkout']);
+});
+
+
+Auth::routes();
+Route::get('/home', function () {
+    return redirect('/admin');
+});
+// Route::get('/home', [HomeController::class, 'index'])->name('home');

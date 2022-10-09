@@ -145,5 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('js/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('js/adminlte.min.js') }}"></script>
+<!-- jQuery -->
+<script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
 </body>
 </html>
