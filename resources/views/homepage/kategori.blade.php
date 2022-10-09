@@ -12,8 +12,8 @@
                     <div class="card mb-4 shadow-sm">
                         <a href="{{ URL::to('kategori/' . $kategori->slug_kategori) }}">
                             @if ($kategori->foto != null)
-                                <img src="{{ \Storage::url($kategori->foto) }}" alt="{{ $kategori->nama_kategori }}"
-                                    class="card-img-top">
+                                <img src="{{ asset('storage/dataimage/' . $kategori->foto) }}"
+                                    alt="{{ $kategori->nama_kategori }}" class="card-img-top">
                             @else
                                 <img src="{{ asset('images/bag.jpg') }}" alt="{{ $kategori->nama_kategori }}"
                                     class="card-img-top">
@@ -39,8 +39,8 @@
                         <div class="card mb-4 shadow-sm">
                             <a href="{{ URL::to('produk/' . $produk->slug_produk) }}">
                                 @if ($produk->foto != null)
-                                    <img src="{{ \Storage::url($produk->foto) }}" alt="{{ $produk->nama_produk }}"
-                                        class="card-img-top">
+                                    <img src="{{ asset('storage/dataimage/' . $produk->foto) }}"
+                                        alt="{{ $produk->nama_produk }}" class="card-img-top">
                                 @else
                                     <img src="{{ asset('images/bag.jpg') }}" alt="{{ $produk->nama_produk }}"
                                         class="card-img-top">

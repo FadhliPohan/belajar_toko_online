@@ -28,7 +28,7 @@
                             <div class="card mb-4 shadow-sm">
                                 <a href="{{ URL::to('produk/' . $produk->slug_produk) }}">
                                     @if ($produk->foto != null)
-                                        <img src="{{ \Storage::url($produk->foto) }}" alt="{{ $produk->nama_produk }}"
+                                        <img src="{{  asset('storage/dataimage/' .$produk->foto) }}" alt="{{ $produk->nama_produk }}"
                                             class="card-img-top">
                                     @else
                                         <img src="{{ asset('images/bag.jpg') }}" alt="{{ $produk->nama_produk }}"

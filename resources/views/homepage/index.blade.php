@@ -9,7 +9,8 @@
                         @foreach ($itemslide as $index => $slide)
                             @if ($index == 0)
                                 <div class="carousel-item active">
-                                    <img src="{{ \Storage::url($slide->foto) }}" class="d-block w-100" alt="...">
+                                    <img src="{{ asset('storage/dataimage/' . $slide->foto) }}" class="d-block w-100"
+                                        alt="...">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5>{{ $slide->caption_title }}</h5>
                                         <p>{{ $slide->caption_content }}</p>
@@ -17,7 +18,8 @@
                                 </div>
                             @else
                                 <div class="carousel-item">
-                                    <img src="{{ \Storage::url($slide->foto) }}" class="d-block w-100" alt="...">
+                                    <img src="{{ asset('storage/dataimage/' . $slide->foto) }}" class="d-block w-100"
+                                        alt="...">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5>{{ $slide->caption_title }}</h5>
                                         <p>{{ $slide->caption_content }}</p>
@@ -49,8 +51,8 @@
                     <div class="card mb-4 shadow-sm">
                         <a href="{{ URL::to('kategori/' . $kategori->slug_kategori) }}">
                             @if ($kategori->foto != null)
-                                <img src="{{ \Storage::url($kategori->foto) }}" alt="{{ $kategori->nama_kategori }}"
-                                    class="card-img-top">
+                                <img src="{{ asset('storage/dataimage/' . $kategori->foto) }}"
+                                    alt="{{ $kategori->nama_kategori }}" class="card-img-top">
                             @else
                                 <img src="{{ asset('images/bag.jpg') }}" alt="{{ $kategori->nama_kategori }}"
                                     class="card-img-top">
@@ -76,7 +78,7 @@
                         <div class="card mb-4 shadow-sm">
                             <a href="{{ URL::to('produk/' . $promo->produk->slug_produk) }}">
                                 @if ($promo->produk->foto != null)
-                                    <img src="{{ \Storage::url($promo->produk->foto) }}"
+                                    <img src="{{ asset('storage/dataimage/' . $promo->produk->foto) }}"
                                         alt="{{ $promo->produk->nama_produk }}" class="card-img-top">
                                 @else
                                     <img src="{{ asset('images/bag.jpg') }}" alt="{{ $promo->produk->nama_produk }}"
@@ -120,8 +122,8 @@
                             <div class="card mb-4 shadow-sm">
                                 <a href="{{ URL::to('produk/satu') }}">
                                     @if ($produk->foto != null)
-                                        <img src="{{ \Storage::url($produk->foto) }}" alt="{{ $produk->nama_produk }}"
-                                            class="card-img-top">
+                                        <img src="{{ asset('storage/dataimage/' . $produk->foto) }}"
+                                            alt="{{ $produk->nama_produk }}" class="card-img-top">
                                     @else
                                         <img src="{{ asset('images/bag.jpg') }}" alt="{{ $produk->nama_produk }}"
                                             class="card-img-top">

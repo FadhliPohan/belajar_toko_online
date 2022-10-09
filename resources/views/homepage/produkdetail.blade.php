@@ -8,11 +8,13 @@
                         @foreach ($itemproduk->images as $index => $image)
                             @if ($index == 0)
                                 <div class="carousel-item active">
-                                    <img src="{{ \Storage::url($image->foto) }}" class="d-block w-100" alt="...">
+                                    <img src="{{ asset('storage/dataimage/' . $image->foto) }}" class="d-block w-100"
+                                        alt="...">
                                 </div>
                             @else
                                 <div class="carousel-item">
-                                    <img src="{{ \Storage::url($image->foto) }}" class="d-block w-100" alt="...">
+                                    <img src="{{ asset('storage/dataimage/' . $image->foto) }}" class="d-block w-100"
+                                        alt="...">
                                 </div>
                             @endif
                         @endforeach
