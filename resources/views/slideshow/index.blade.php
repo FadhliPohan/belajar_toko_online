@@ -38,7 +38,7 @@
                                             </td>
                                             <td>
                                                 @if ($slide->foto != null)
-                                                    <img src="{{ \Storage::url($slide->foto) }}"
+                                                    <img src="{{ asset('storage/dataimage/' . $slide->foto) }}"
                                                         alt="{{ $slide->caption_title }}" width='150px'
                                                         class="img-thumbnail">
                                                 @endif
