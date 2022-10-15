@@ -14,7 +14,7 @@ class AlamatPengirimanController extends Controller
      */
     public function index(Request $request)
     {
-         $itemuser = $request->user();
+        $itemuser = $request->user();
         $itemalamatpengiriman = AlamatPengiriman::where('user_id', $itemuser->id)->paginate(10);
         $data = array('title' => 'Alamat Pengiriman',
                     'itemalamatpengiriman' => $itemalamatpengiriman);
@@ -27,7 +27,18 @@ class AlamatPengirimanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
+    {
+        
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
          $this->validate($request, [
             'nama_penerima' => 'required',
@@ -48,17 +59,6 @@ class AlamatPengirimanController extends Controller
         AlamatPengiriman::where('id', '!=', $itemalamatpengiriman->id)
                     ->update(['status' => 'tidak']);
         return back()->with('success', 'Alamat pengiriman berhasil disimpan');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

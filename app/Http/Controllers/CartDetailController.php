@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\CartDetail;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class CartDetailController extends Controller

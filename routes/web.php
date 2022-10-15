@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlamatPengirimanController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\DashboardController;
@@ -14,7 +15,6 @@ use App\Http\Controllers\SlideshowController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WishlistController;
-use App\Models\AlamatPengiriman;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -76,7 +76,7 @@ Route::group(['middleware' => 'auth'], function() {
   Route::patch('kosongkan/{id}', [CartController::class,'kosongkan']);
   // cart detail
   Route::resource('cartdetail', CartDetailController::class);
-  Route::resource('alamatpengiriman', AlamatPengiriman::class);
+  Route::resource('alamatpengiriman', AlamatPengirimanController::class);
 // checkout
 Route::get('checkout',[CartController::class,'checkout']);
 });
